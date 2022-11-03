@@ -20,7 +20,7 @@ public class EvaluateString {
             double parse() {
                 nextChar();
                 double x = parseExpression();
-                if (pos < str.length()) throw new RuntimeException("Unexpected: " + (char)ch);
+                if (pos < str.length()) throw new RuntimeException("Inesperado: " + (char)ch);
                 return x;
             }
 
@@ -50,7 +50,7 @@ public class EvaluateString {
                 int startPos = this.pos;
                 if (eat('(')) { // parentheses
                     x = parseExpression();
-                    if (!eat(')')) throw new RuntimeException("Missing ')'");
+                    if (!eat(')')) throw new RuntimeException("Faltando ')'");
                 } else if ((ch >= '0' && ch <= '9') || ch == '.') { // numbers
                     while ((ch >= '0' && ch <= '9') || ch == '.') nextChar();
                     x = Double.parseDouble(str.substring(startPos, this.pos));
@@ -59,7 +59,7 @@ public class EvaluateString {
                     String func = str.substring(startPos, this.pos);
                     if (eat('(')) {
                         x = parseExpression();
-                        if (!eat(')')) throw new RuntimeException("Missing ')' after argument to " + func);
+                        if (!eat(')')) throw new RuntimeException("Faltando ')' depois do argumento para " + func);
                     } else {
                         x = parseFactor();
                     }
@@ -67,9 +67,9 @@ public class EvaluateString {
                     else if (func.equals("sin")) x = Math.sin(Math.toRadians(x));
                     else if (func.equals("cos")) x = Math.cos(Math.toRadians(x));
                     else if (func.equals("tan")) x = Math.tan(Math.toRadians(x));
-                    else throw new RuntimeException("Unknown function: " + func);
+                    else throw new RuntimeException("Função desconhecida " + func);
                 } else {
-                    throw new RuntimeException("Unexpected: " + (char)ch);
+                    throw new RuntimeException("Inesperado: " + (char)ch);
                 }
 
                 if (eat('^')) x = Math.pow(x, parseFactor()); // exponentiation

@@ -25,6 +25,7 @@ public class Calculator {
     private JButton a6Button;
     private JButton a3Button;
     private JButton equalsButton;
+    private JLabel errorLabel;
 
     Double result;
     public Calculator() {
@@ -151,16 +152,43 @@ public class Calculator {
         equalsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                double result = EvaluateString.eval(txtDisplay.getText());
-                txtDisplay.setText(Double.toString(result));
+                try {
+                    double result = EvaluateString.eval(txtDisplay.getText());
+                    txtDisplay.setText(Double.toString(result));
+                } catch (Exception error) {
+                    System.out.println(error.toString());
+                    errorLabel.setText(error.getMessage());
+                    errorLabel.setVisible(true);
+                    hideError(5000);
+                }
             }
         });
+    }
+
+    private void hideError(int delay) {
+        final Timer timer = new Timer(delay, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                errorLabel.setText("");
+                errorLabel.setVisible(false);
+            }
+        });
+        timer.stop();
+        timer.start();
     }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Calculator");
         frame.setContentPane(new Calculator().Calculator);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        LookAndFeel feel = UIManager.getLookAndFeel();
+        String systemLF = UIManager.getSystemLookAndFeelClassName();
+
+        try {
+            UIManager.setLookAndFeel(systemLF);
+        } catch (Exception e) {
+            LookAndFeel feel2 = UIManager.getLookAndFeel();
+        }
         frame.pack();
         frame.setVisible(true);
     }
