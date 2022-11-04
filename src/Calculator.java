@@ -26,6 +26,10 @@ public class Calculator {
     private JButton a3Button;
     private JButton equalsButton;
     private JLabel errorLabel;
+    private JButton senButton;
+    private JButton cosButton;
+    private JButton tgButton;
+    private JButton squareButton;
 
     Double result;
     public Calculator() {
@@ -143,6 +147,35 @@ public class Calculator {
                 txtDisplay.setText(txtDisplay.getText() + "(");
             }
         });
+
+        senButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                txtDisplay.setText(txtDisplay.getText() + "sin");
+            }
+        });
+
+        cosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                txtDisplay.setText(txtDisplay.getText() + "cos");
+            }
+        });
+
+        tgButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                txtDisplay.setText(txtDisplay.getText() + "tan");
+            }
+        });
+
+        squareButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                txtDisplay.setText(txtDisplay.getText() + "sqrt");
+            }
+        });
+
         acButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
