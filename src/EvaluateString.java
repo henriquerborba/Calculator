@@ -69,7 +69,7 @@ public class EvaluateString {
                     else if (func.equals("tan")) x = Math.tan(Math.toRadians(x));
                     else throw new RuntimeException("Função desconhecida " + func);
                 } else {
-                    throw new RuntimeException("Inesperado: " + (char)ch);
+                    throw new RuntimeException("Expressão malformada");
                 }
 
                 if (eat('^')) x = Math.pow(x, parseFactor()); // exponentiation

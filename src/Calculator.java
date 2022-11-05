@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Calculator {
     private JPanel Calculator;
@@ -15,7 +17,7 @@ public class Calculator {
     private JButton a4Button;
     private JButton a7Button;
     private JButton leftBracketButton;
-    private JButton modButton;
+    private JButton backSpaceButton;
     private JButton a8Button;
     private JButton a5Button;
     private JButton a2Button;
@@ -129,10 +131,14 @@ public class Calculator {
                 txtDisplay.setText(txtDisplay.getText() + "+");
             }
         });
-        modButton.addActionListener(new ActionListener() {
+        backSpaceButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                txtDisplay.setText(txtDisplay.getText() + "%");
+                String str = txtDisplay.getText();
+                if (str != null && str.length() > 0 && str.charAt(str.length() - 1) == 'x') {
+                    str = str.substring(0, str.length() - 1);
+                }
+                txtDisplay.setText(str.substring(0, str.length() - 1));
             }
         });
         rightBracketButton.addActionListener(new ActionListener() {
@@ -214,6 +220,9 @@ public class Calculator {
         JFrame frame = new JFrame("Calculator");
         frame.setContentPane(new Calculator().Calculator);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Path currentRelativePath = Paths.get("");
+        ImageIcon img = new ImageIcon(currentRelativePath.toAbsolutePath().toString() + "/assets/icon.png");
+        frame.setIconImage(img.getImage());
         LookAndFeel feel = UIManager.getLookAndFeel();
         String systemLF = UIManager.getSystemLookAndFeelClassName();
 
